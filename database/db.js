@@ -5,7 +5,7 @@ const db = "determinix";
 // Fungsi untuk koneksi ke database
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/' + db);
+    await mongoose.connect('mongodb://localhost:27017/determinix' );
     console.log('MongoDB Connected to ' + db);
   } catch (error) {
     console.error('Database connection failed:', error.message);
