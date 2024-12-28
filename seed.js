@@ -1,46 +1,39 @@
 const mongoose = require('mongoose');
-const Project = require('./models/project'); // Asumsi Anda memiliki model Project
-const Activities = require('./models/Activities'); // Asumsi Anda memiliki model Project
+const Articles = require('./models/articles'); // Asumsi Anda memiliki model Project
 
-const projectData = [
+const articlesData = [
   {
-    date: "June 18, 2023",
-    title: "Activities 01",
+    title: "Articles 01",
+    writer: [
+      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0ba"),
+    ],
+    date: "May 18, 2023",
+    type: "GENERAL",
+    short:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem a voluptas, dicta ex reprehenderit ullam?",
     img: "/assets/lepy.png",
   },
   {
-    date: "June 18, 2023",
-    title: "Activities 02",
+    title: "Articles 02",
+    writer: [
+      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bc"),
+    ],
+    date: "May 18, 2023",
+    type: "GENERAL",
+    short:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem a voluptas, dicta ex reprehenderit ullam?",
     img: "/assets/lepy.png",
   },
   {
-    date: "June 18, 2023",
-    title: "Activities 03",
-    img: "/assets/lepy.png",
-  },
-  {
-    date: "June 18, 2023",
-    title: "Activities 04",
-    img: "/assets/lepy.png",
-  },
-  {
-    date: "June 18, 2023",
-    title: "Activities 05",
-    img: "/assets/lepy.png",
-  },
-  {
-    date: "June 18, 2023",
-    title: "Activities 06",
-    img: "/assets/lepy.png",
-  },
-  {
-    date: "June 18, 2023",
-    title: "Activities 07",
-    img: "/assets/lepy.png",
-  },
-  {
-    date: "June 18, 2023",
-    title: "Activities 08",
+    title: "Articles 03",
+    writer: [
+      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0ba"),
+      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bb"), // ID Member 2
+    ],
+    date: "May 18, 2023",
+    type: "GENERAL",
+    short:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem a voluptas, dicta ex reprehenderit ullam?",
     img: "/assets/lepy.png",
   },
 ];
@@ -53,7 +46,7 @@ const insertProjects = async () => {
       useUnifiedTopology: true,
     });
 
-    const result = await Activities.insertMany(projectData);
+    const result = await Articles.insertMany(articlesData);
     console.log('Projects inserted:', result);
 
     mongoose.disconnect(); // Tutup koneksi setelah selesai

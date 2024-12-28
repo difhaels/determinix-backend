@@ -3,7 +3,8 @@ const express = require('express');
 const connectDB = require('./database/db');
 const Member = require('./models/member');
 const Project = require('./models/project');
-const Activities = require('./models/Activities');
+const Activities = require('./models/activities');
+const Articles = require('./models/articles');
 
 const app = express();
 const PORT = 5000;
@@ -46,6 +47,16 @@ app.get('/activities', async (req, res) => {
   }
 });
 
+// Endpoint untuk mendapatkan articles
+app.get('/articles', async (req, res) => {
+  try {
+    const projects = await Articles.find().populate('writer');
+    res.json(projects);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Endpoint untuk mendapatkan project berdasarkan ID
 app.get('/projects/:id', async (req, res) => {
   const { id } = req.params; // Mendapatkan ID dari parameter URL
@@ -63,6 +74,7 @@ app.get('/projects/:id', async (req, res) => {
   }
 
 });
+
 // Endpoint untuk mendapatkan activity berdasarkan ID
 app.get('/activities/:id', async (req, res) => {
   const { id } = req.params; // Mendapatkan ID dari parameter URL
@@ -80,6 +92,22 @@ app.get('/activities/:id', async (req, res) => {
   }
 });
 
+// Endpoint untuk mendapatkan articles berdasarkan ID
+app.get('/articles/:id', async (req, res) => {
+  const { id } = req.params; // Mendapatkan ID dari parameter URL
+  try {
+    // Menemukan proyek berdasarkan ID
+    const activity = await Articles.findById(id).populate('writer');
+    
+    if (!activity) {
+      return res.status(404).json({ message: 'Activity not found' });
+    }
+    
+    res.json(activity); // Mengirimkan data proyek sebagai respons
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 // Jalankan server
 app.listen(PORT, () => {
