@@ -3,6 +3,7 @@ const express = require('express');
 const connectDB = require('./database/db');
 const Member = require('./models/member');
 const Project = require('./models/project');
+const Activities = require('./models/Activities');
 
 const app = express();
 const PORT = 5000;
@@ -29,6 +30,16 @@ app.get('/members', async (req, res) => {
 app.get('/projects', async (req, res) => {
   try {
     const projects = await Project.find().populate('members'); // Populate untuk menampilkan data member
+    res.json(projects);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Endpoint untuk mendapatkan Activities
+app.get('/activities', async (req, res) => {
+  try {
+    const projects = await Activities.find();
     res.json(projects);
   } catch (error) {
     res.status(500).json({ message: error.message });
