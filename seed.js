@@ -1,70 +1,46 @@
 const mongoose = require('mongoose');
 const Project = require('./models/project'); // Asumsi Anda memiliki model Project
+const Activities = require('./models/Activities'); // Asumsi Anda memiliki model Project
 
 const projectData = [
   {
-    title: "Project 1",
-    date: "22-08-2023",
-    members: [
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0ba"), // ID Agung
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bb"), // ID Member 2
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bc"), // ID Member 3
-    ],
+    date: "June 18, 2023",
+    title: "Activities 01",
     img: "/assets/lepy.png",
   },
   {
-    title: "Project 2",
-    date: "22-08-2023",
-    members: [
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0ba"), // ID Agung
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0c1"), // ID Member 8
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bd"), // ID Member 4
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0be"), // ID Member 5
-    ],
+    date: "June 18, 2023",
+    title: "Activities 02",
     img: "/assets/lepy.png",
   },
   {
-    title: "Project 3",
-    date: "22-08-2023",
-    members: [
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0ba"), // ID Agung
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0c0"), // ID Member 7
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bd"), // ID Member 4
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bf"), // ID Member 6
-    ],
+    date: "June 18, 2023",
+    title: "Activities 03",
     img: "/assets/lepy.png",
   },
   {
-    title: "Project 4",
-    date: "22-08-2023",
-    members: [
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bb"), // ID Member 2
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0c0"), // ID Member 7
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bd"), // ID Member 4
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0c1"), // ID Member 8
-    ],
+    date: "June 18, 2023",
+    title: "Activities 04",
     img: "/assets/lepy.png",
   },
   {
-    title: "Project 5",
-    date: "22-08-2023",
-    members: [
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0ba"), // ID Agung
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bc"), // ID Member 3
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bd"), // ID Member 4
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bf"), // ID Member 6
-    ],
+    date: "June 18, 2023",
+    title: "Activities 05",
     img: "/assets/lepy.png",
   },
   {
-    title: "Project 6",
-    date: "22-08-2023",
-    members: [
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0be"), // ID Member 5
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0c0"), // ID Member 7
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bf"), // ID Member 6
-      new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0ba"), // ID Agung
-    ],
+    date: "June 18, 2023",
+    title: "Activities 06",
+    img: "/assets/lepy.png",
+  },
+  {
+    date: "June 18, 2023",
+    title: "Activities 07",
+    img: "/assets/lepy.png",
+  },
+  {
+    date: "June 18, 2023",
+    title: "Activities 08",
     img: "/assets/lepy.png",
   },
 ];
@@ -77,7 +53,7 @@ const insertProjects = async () => {
       useUnifiedTopology: true,
     });
 
-    const result = await Project.insertMany(projectData);
+    const result = await Activities.insertMany(projectData);
     console.log('Projects inserted:', result);
 
     mongoose.disconnect(); // Tutup koneksi setelah selesai
