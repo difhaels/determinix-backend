@@ -35,6 +35,24 @@ app.get('/projects', async (req, res) => {
   }
 });
 
+// Endpoint untuk mendapatkan project berdasarkan ID
+app.get('/projects/:id', async (req, res) => {
+  const { id } = req.params; // Mendapatkan ID dari parameter URL
+  try {
+    // Menemukan proyek berdasarkan ID dan meng-populate data anggota
+    const project = await Project.findById(id).populate('members');
+    
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+    
+    res.json(project); // Mengirimkan data proyek sebagai respons
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
 // Jalankan server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
