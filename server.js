@@ -109,6 +109,34 @@ app.get('/articles/:id', async (req, res) => {
   }
 });
 
+// endpoint untuk mendapatkan member projects berdasarkan ID member (MP = Member Project)
+app.get('/mp/:id', async (req, res) => {
+  const { id } = req.params; // minta id dari url frontend
+  try {
+    const projects = await Project.find({ members: id }).populate("members");
+    if (!projects) {
+      return res.status(404).json({ message: 'Projects by this member is not found' });
+    }
+    res.json(projects);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+});
+
+// endpoint untuk mendapatkan member articles berdasarkan ID member (MA = Member Article)
+app.get('/ap/:id', async (req, res) => {
+  const { id } = req.params; // minta id dari url frontend
+  try {
+    const articles = await Articles.find({ writer: id }).populate("writer");
+    if (!articles) {
+      return res.status(404).json({ message: 'Articles by this member is not found' });
+    }
+    res.json(articles);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+});
+
 // Jalankan server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
