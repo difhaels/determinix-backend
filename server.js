@@ -140,10 +140,24 @@ app.get('/mp/:id', async (req, res) => {
 });
 
 // endpoint untuk mendapatkan member articles berdasarkan ID member (MA = Member Article)
-app.get('/ap/:id', async (req, res) => {
+app.get('/ma/:id', async (req, res) => {
   const { id } = req.params; // minta id dari url frontend
   try {
     const articles = await Articles.find({ writer: id }).populate("writer");
+    if (!articles) {
+      return res.status(404).json({ message: 'Articles by this member is not found' });
+    }
+    res.json(articles);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+});
+
+// endpoint untuk mendapatkan article berdasarkan type
+app.get('/article/type/:name', async (req, res) => {
+  const { name } = req.params; // minta type dari url frontend
+  try {
+    const articles = await Articles.find({ type: name }).populate("writer");
     if (!articles) {
       return res.status(404).json({ message: 'Articles by this member is not found' });
     }
