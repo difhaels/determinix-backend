@@ -1,35 +1,13 @@
 const mongoose = require("mongoose");
 const Articles = require("./models/articles"); // Asumsi Anda memiliki model Project
+const Admin = require("./models/Admin");
 
 const articlesData = [
   {
-    title: "Articles 01",
-    writer: new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0ba"),
-    date: "May 18, 2023",
-    type: "GENERAL",
-    short:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem a voluptas, dicta ex reprehenderit ullam?",
-    img: "/assets/lepy.png",
-  },
-  {
-    title: "Articles 02",
-    writer: new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bc"),
-    date: "May 18, 2023",
-    type: "GENERAL",
-    short:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem a voluptas, dicta ex reprehenderit ullam?",
-    img: "/assets/lepy.png",
-  },
-  {
-    title: "Articles 03",
-    writer: new mongoose.Types.ObjectId("676e43065c3d5e7d283dc0bb"),
-
-    date: "May 18, 2023",
-    type: "GENERAL",
-    short:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem a voluptas, dicta ex reprehenderit ullam?",
-    img: "/assets/lepy.png",
-  },
+    username: "admin_dx",
+    password: "pw_dx_123",
+    role: "admin"
+  }
 ];
 
 const insertProjects = async () => {
@@ -39,7 +17,7 @@ const insertProjects = async () => {
       useUnifiedTopology: true,
     });
 
-    const result = await Articles.insertMany(articlesData);
+    const result = await Admin.insertMany(articlesData);
     console.log("Projects inserted:", result);
 
     mongoose.disconnect(); // Tutup koneksi setelah selesai
