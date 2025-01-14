@@ -4,8 +4,8 @@ const Admin = require("./models/Admin");
 
 const articlesData = [
   {
-    username: "admin_dx",
-    password: "pw_dx_123",
+    username: "admin",
+    password: "admin",
     role: "admin"
   }
 ];
