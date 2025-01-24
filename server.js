@@ -15,6 +15,10 @@ app.use(cors());
 // Koneksi ke database
 connectDB();
 
+require('dotenv').config();
+
+console.log(process.env.API_KEY);
+
 // Middleware untuk parsing JSON
 app.use(express.json());
 
