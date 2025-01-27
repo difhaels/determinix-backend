@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const cloudinary = require("../utils/cloudinary");
+const cloudinary = require("../config/cloudinary");
 const uploud = require("../middleware/multer");
 
 router.post("/upload", uploud.single("image"), function (req, res) {

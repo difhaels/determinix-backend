@@ -1,6 +1,6 @@
 const cors = require("cors");
 const express = require("express");
-const connectDB = require("./database/db");
+const connectDB = require("./config/db");
 const Admin = require("./models/Admin");
 const Member = require("./models/member");
 const Project = require("./models/project");
