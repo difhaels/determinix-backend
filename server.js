@@ -7,6 +7,8 @@ const Project = require("./models/project");
 const Activities = require("./models/activities");
 const Articles = require("./models/articles");
 
+const memberRoutes = require("./routes/memberRoutes");
+
 require('dotenv').config();
 
 const uploadRoute = require('./controller/routeUpload');
@@ -38,14 +40,15 @@ app.get("/admin", async (req, res) => {
 });
 
 // Endpoint untuk mendapatkan data anggota
-app.get("/members", async (req, res) => {
-  try {
-    const members = await Member.find();
-    res.json(members);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+// app.get("/members", async (req, res) => {
+//   try {
+//     const members = await Member.find();
+//     res.json(members);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
+app.use("/members", memberRoutes);
 
 // Endpoint untuk mendapatkan project beserta anggota yang terhubung
 app.get("/projects", async (req, res) => {
