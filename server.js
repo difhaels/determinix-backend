@@ -7,6 +7,10 @@ const Project = require("./models/project");
 const Activities = require("./models/activities");
 const Articles = require("./models/articles");
 
+require('dotenv').config();
+
+const uploadRoute = require('./controller/routeUpload');
+
 const app = express();
 const PORT = 5000;
 
@@ -15,12 +19,13 @@ app.use(cors());
 // Koneksi ke database
 connectDB();
 
-require('dotenv').config();
-
-console.log(process.env.API_KEY);
+// console.log(process.env.CLOUDINARY_API_KEY);
 
 // Middleware untuk parsing JSON
 app.use(express.json());
+
+// handle image cloudinary
+app.use("/api/users" , uploadRoute);
 
 // endpoint untuk mendapatkan admin
 app.get("/admin", async (req, res) => {
