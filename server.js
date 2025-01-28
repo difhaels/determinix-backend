@@ -8,6 +8,7 @@ const Activities = require("./models/activities");
 const Articles = require("./models/articles");
 
 const memberRoutes = require("./routes/memberRoutes");
+const projectRoutes = require("./routes/projectRoutes");
 
 require('dotenv').config();
 
@@ -51,14 +52,7 @@ app.get("/admin", async (req, res) => {
 app.use("/members", memberRoutes);
 
 // Endpoint untuk mendapatkan project beserta anggota yang terhubung
-app.get("/projects", async (req, res) => {
-  try {
-    const projects = await Project.find().populate("members"); // Populate untuk menampilkan data member
-    res.json(projects);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+app.use("/projects", projectRoutes)
 
 // Endpoint untuk mendapatkan Activities
 app.get("/activities", async (req, res) => {
