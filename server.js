@@ -9,6 +9,7 @@ const Articles = require("./models/articles");
 
 const memberRoutes = require("./routes/memberRoutes");
 const projectRoutes = require("./routes/projectRoutes");
+const activitiesRoutes = require("./routes/activitiesRoutes");
 
 require('dotenv').config();
 
@@ -55,14 +56,7 @@ app.use("/members", memberRoutes);
 app.use("/projects", projectRoutes)
 
 // Endpoint untuk mendapatkan Activities
-app.get("/activities", async (req, res) => {
-  try {
-    const projects = await Activities.find();
-    res.json(projects);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+app.use("/activities", activitiesRoutes)
 
 // Endpoint untuk mendapatkan articles
 app.get("/articles", async (req, res) => {
