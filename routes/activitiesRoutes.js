@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Activities = require("../models/activities");
+const Activities = require("../models/activity");
 
 // mendapatkan semua activities
 router.get("/", async (req, res) => {

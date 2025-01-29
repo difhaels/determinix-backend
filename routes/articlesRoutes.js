@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Articles = require("../models/articles");
+const Articles = require("../models/article");
 
 // mendapatkan semua artikel
 router.get("/", async (req, res) => {
