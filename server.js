@@ -24,8 +24,6 @@ app.use(cors());
 // Koneksi ke database
 connectDB();
 
-// console.log(process.env.CLOUDINARY_API_KEY);
-
 // Middleware untuk parsing JSON
 app.use(express.json());
 
@@ -51,9 +49,11 @@ app.get("/admin", async (req, res) => {
 //     res.status(500).json({ message: error.message });
 //   }
 // });
+
+// Prefix untuk rute member
 app.use("/members", memberRoutes);
 
-// Prefix untuk rute proyek
+// Prefix untuk rute project
 app.use("/projects", projectRoutes)
 
 // Endpoint untuk mendapatkan Activities
@@ -61,9 +61,6 @@ app.use("/activities", activitiesRoutes)
 
 // Endpoint untuk mendapatkan articles
 app.use("/articles",  articlesRoutes)
-
-// Endpoint untuk mendapatkan member berdasarkan ID
-app.use("/member", memberRoutes)
 
 // Endpoint untuk mendapatkan activity berdasarkan ID
 app.get("/activities/:id", async (req, res) => {
