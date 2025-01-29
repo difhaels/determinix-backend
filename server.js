@@ -10,7 +10,7 @@ const articlesRoutes = require("./routes/articlesRoutes");
 
 require("dotenv").config();
 
-const uploadRoute = require("./controller/routeUpload");
+const uploadRoute = require("./controllers/routeUpload");
 
 const app = express();
 const PORT = 5000;
