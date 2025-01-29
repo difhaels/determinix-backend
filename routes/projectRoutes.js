@@ -45,4 +45,15 @@ router.get("/mp/:id", async (req, res) => {
   }
 });
 
+// delete project
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Project.findByIdAndDelete(id);
+    res.status(200).send({ message: "Project deleted successfully" });
+  } catch (error) {
+    res.status(500).send({ message: "Error deleting project", error });
+  }
+});
+
 module.exports = router;

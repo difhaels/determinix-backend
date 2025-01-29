@@ -49,19 +49,6 @@ app.use("/activities", activitiesRoutes);
 // Endpoint untuk mendapatkan articles
 app.use("/articles", articlesRoutes);
 
-// CMS
-
-// delete
-app.delete("/delete/project/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    await Project.findByIdAndDelete(id);
-    res.status(200).send({ message: "Project deleted successfully" });
-  } catch (error) {
-    res.status(500).send({ message: "Error deleting project", error });
-  }
-});
-
 // Jalankan server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
