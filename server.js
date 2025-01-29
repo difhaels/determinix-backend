@@ -1,9 +1,8 @@
 const cors = require("cors");
 const express = require("express");
 const connectDB = require("./config/db");
-const Admin = require("./models/Admin");
-const Project = require("./models/project");
 
+const adminRoutes = require("./routes/adminRoutes");
 const memberRoutes = require("./routes/memberRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const activitiesRoutes = require("./routes/activitiesRoutes");
@@ -27,15 +26,8 @@ app.use(express.json());
 // handle image cloudinary
 app.use("/api/users", uploadRoute);
 
-// endpoint untuk mendapatkan admin
-app.get("/admin", async (req, res) => {
-  try {
-    const admin = await Admin.find();
-    res.json(admin);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+// Prefix untuk rute admin
+app.use("/admin", adminRoutes);
 
 // Prefix untuk rute member
 app.use("/members", memberRoutes);
