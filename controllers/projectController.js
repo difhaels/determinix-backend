@@ -1,4 +1,5 @@
 const Project = require("../models/project");
+const cloudinary = require("../config/cloudinary");
 
 const getAllProject = async (req, res) => {
   try {
@@ -50,9 +51,47 @@ const deleteProject = async (req, res) => {
   }
 };
 
+const addProject = async (req, res) => {
+  try {
+    const { title, description, members } = req.body;
+
+    console.log("Req Files:", req.files); // Debugging
+    console.log("Req Body:", req.body);   // Debugging
+
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ message: "No images uploaded" });
+    }
+
+    // Upload ke Cloudinary
+    const uploadedImages = [];
+    for (let file of req.files) {
+      const result = await cloudinary.uploader.upload(file.path, {
+        folder: "/projects",
+      });
+      uploadedImages.push(result.secure_url);
+    }
+
+    // Simpan ke MongoDB
+    const newProject = new Project({
+      title,
+      description,
+      members: JSON.parse(members), // Konversi dari string ke array
+      imgUrl: uploadedImages,
+    });
+
+    await newProject.save();
+    res.status(201).json({ message: "Project created successfully!", project: newProject });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error creating project", error: err });
+  }
+};
+
 module.exports = {
   getAllProject,
   getProjectById,
   getProjectByMember,
   deleteProject,
+  addProject
 };

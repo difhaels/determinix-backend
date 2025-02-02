@@ -1,11 +1,13 @@
 const multer = require("multer");
+const path = require("path");
 
+// Konfigurasi penyimpanan file sementara sebelum dikirim ke Cloudinary
 const storage = multer.diskStorage({
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
   },
 });
 
-const uploud = multer({ storage: storage });
+const upload = multer({ storage });
 
-module.exports = uploud;
+module.exports = upload;
