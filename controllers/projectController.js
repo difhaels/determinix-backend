@@ -53,7 +53,7 @@ const deleteProject = async (req, res) => {
 
 const addProject = async (req, res) => {
   try {
-    const { title, description, members } = req.body;
+    const { title, description, members, att1, att2, att3 } = req.body;
 
     console.log("Req Files:", req.files); // Debugging
     console.log("Req Body:", req.body);   // Debugging
@@ -77,6 +77,9 @@ const addProject = async (req, res) => {
       description,
       members: JSON.parse(members), // Konversi dari string ke array
       imgUrl: uploadedImages,
+      att1,
+      att2,
+      att3
     });
 
     await newProject.save();

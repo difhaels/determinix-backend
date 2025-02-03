@@ -8,10 +8,6 @@ const projectRoutes = require("./routes/projectRoutes");
 const activitiesRoutes = require("./routes/activitiesRoutes");
 const articlesRoutes = require("./routes/articlesRoutes");
 
-require("dotenv").config();
-
-const uploadRoute = require("./controllers/routeUpload");
-
 const app = express();
 const PORT = 5000;
 
@@ -22,9 +18,6 @@ connectDB();
 
 // Middleware untuk parsing JSON
 app.use(express.json());
-
-// handle image cloudinary
-app.use("/api/users", uploadRoute);
 
 // Prefix untuk rute admin
 app.use("/admin", adminRoutes);
