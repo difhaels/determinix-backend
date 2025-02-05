@@ -22,6 +22,15 @@ router.get("/mp/:id", getProjectByMember);
 router.delete("/:id", deleteProject);
 
 // add project
-router.post('/',upload.array("images", 5), addProject);
+router.post(
+  "/",
+  upload.fields([
+    { name: "banner", maxCount: 1 },
+    { name: "imgAtt1", maxCount: 1 },
+    { name: "imgAtt2", maxCount: 1 },
+    { name: "imgAtt3", maxCount: 1 },
+  ]),
+  addProject
+);
 
 module.exports = router;

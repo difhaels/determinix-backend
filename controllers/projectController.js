@@ -53,38 +53,69 @@ const deleteProject = async (req, res) => {
 
 const addProject = async (req, res) => {
   try {
-    const { title, description, members, att1, att2, att3 } = req.body;
+    const {
+      title,
+      description,
+      head,
+      contributor,
+      att1description,
+      att2description,
+      att3description,
+    } = req.body;
 
     console.log("Req Files:", req.files); // Debugging
-    console.log("Req Body:", req.body);   // Debugging
+    console.log("Req Body:", req.body); // Debugging
 
-    if (!req.files || req.files.length === 0) {
-      return res.status(400).json({ message: "No images uploaded" });
-    }
+    const bannerUrl = req.files["banner"]
+    ? (
+        await cloudinary.uploader.upload(req.files["banner"][0].path, {
+          folder: "/projects",
+        })
+      ).secure_url
+    : null;
 
-    // Upload ke Cloudinary
-    const uploadedImages = [];
-    for (let file of req.files) {
-      const result = await cloudinary.uploader.upload(file.path, {
-        folder: "/projects",
-      });
-      uploadedImages.push(result.secure_url);
-    }
+    // Upload att1, att2, att3 jika tersedia
+    const att1Url = req.files["imgAtt1"]
+      ? (
+          await cloudinary.uploader.upload(req.files["imgAtt1"][0].path, {
+            folder: "/projects",
+          })
+        ).secure_url
+      : null;
+    const att2Url = req.files["imgAtt2"]
+      ? (
+          await cloudinary.uploader.upload(req.files["imgAtt2"][0].path, {
+            folder: "/projects",
+          })
+        ).secure_url
+      : null;
+    const att3Url = req.files["imgAtt3"]
+      ? (
+          await cloudinary.uploader.upload(req.files["imgAtt3"][0].path, {
+            folder: "/projects",
+          })
+        ).secure_url
+      : null;
 
     // Simpan ke MongoDB
     const newProject = new Project({
       title,
       description,
-      members: JSON.parse(members), // Konversi dari string ke array
-      imgUrl: uploadedImages,
-      att1,
-      att2,
-      att3
+      head,
+      contributor: JSON.parse(contributor), // Konversi dari string ke array
+      banner: bannerUrl,
+      imgAtt1: att1Url,
+      imgAtt2: att2Url,
+      imgAtt3: att3Url,
+      att1description,
+      att2description,
+      att3description,
     });
 
     await newProject.save();
-    res.status(201).json({ message: "Project created successfully!", project: newProject });
-
+    res
+      .status(201)
+      .json({ message: "Project created successfully!", project: newProject });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Error creating project", error: err });
@@ -96,5 +127,5 @@ module.exports = {
   getProjectById,
   getProjectByMember,
   deleteProject,
-  addProject
+  addProject,
 };
