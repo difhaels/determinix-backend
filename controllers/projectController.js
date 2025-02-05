@@ -3,7 +3,9 @@ const cloudinary = require("../config/cloudinary");
 
 const getAllProject = async (req, res) => {
   try {
-    const projects = await Project.find().populate("members"); // Populate untuk menampilkan data member
+    const projects = await Project.find()
+      .populate("head") // Populate head (ketua proyek)
+      .populate("contributor"); // Populate contributor (anggota proyek)
     res.json(projects);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -67,12 +69,12 @@ const addProject = async (req, res) => {
     console.log("Req Body:", req.body); // Debugging
 
     const bannerUrl = req.files["banner"]
-    ? (
-        await cloudinary.uploader.upload(req.files["banner"][0].path, {
-          folder: "/projects",
-        })
-      ).secure_url
-    : null;
+      ? (
+          await cloudinary.uploader.upload(req.files["banner"][0].path, {
+            folder: "/projects",
+          })
+        ).secure_url
+      : null;
 
     // Upload att1, att2, att3 jika tersedia
     const att1Url = req.files["imgAtt1"]
