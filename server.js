@@ -11,7 +11,13 @@ const articlesRoutes = require("./routes/articlesRoutes");
 const app = express();
 const PORT = 5000;
 
-app.use(cors());
+app.use(
+  cors({
+    // ditambah untuk logout
+    origin: "http://localhost:3000", // Hanya izinkan frontend tertentu
+    credentials: true, // Izinkan cookies/session dikirim
+  })
+);
 
 // Koneksi ke database
 connectDB();

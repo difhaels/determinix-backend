@@ -16,7 +16,9 @@ const getProjectById = async (req, res) => {
   const { id } = req.params; // Mendapatkan ID dari parameter URL
   try {
     // Menemukan proyek berdasarkan ID dan meng-populate data anggota
-    const project = await Project.findById(id).populate("members");
+    const project = await Project.findById(id)
+      .populate("head") // Populate head (ketua proyek)
+      .populate("contributor"); // Populate contributor (anggota proyek)
 
     if (!project) {
       return res.status(404).json({ message: "Project not found" });

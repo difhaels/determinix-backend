@@ -25,4 +25,14 @@ const getActivityById = async (req, res) => {
   }
 };
 
-module.exports = { getAllActivity, getActivityById };
+const deleteActivity = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Activity.findByIdAndDelete(id);
+    res.status(200).send({ message: "Activity deleted successfully" });
+  } catch (error) {
+    res.status(500).send({ message: "Error deleting Activity", error });
+  }
+};
+
+module.exports = { getAllActivity, getActivityById, deleteActivity };

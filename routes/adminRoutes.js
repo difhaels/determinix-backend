@@ -30,6 +30,12 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/logout", (req, res) => {
+  res.clearCookie("token"); // Jika token disimpan di cookie
+  res.json({ message: "Logout berhasil" });
+});
+
+
 // Endpoint hanya bisa diakses admin yang login
 router.get("/dashboard", verifyToken, (req, res) => {
   res.json({ message: "Welcome to the dashboard" });
