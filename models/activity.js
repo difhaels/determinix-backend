@@ -1,11 +1,18 @@
 const mongoose = require('mongoose');
 
-const activitiesSchema = new mongoose.Schema({
+const activitySchema = new mongoose.Schema({
   title: String,
-  date: String,
-  img: String,
+  createdAt: {type: Date, default: Date.now},
+  description: String,
+  banner: String,
+  imgAtt1: String,
+  imgAtt2: String,
+  imgAtt3: String,
+  att1description: String,
+  att2description: String,
+  att3description: String,
 });
 
-const Activities = mongoose.model('Activities', activitiesSchema);
+const Activity = mongoose.model('Activity', activitySchema);
 
-module.exports = Activities;
+module.exports = Activity;
